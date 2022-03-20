@@ -20,6 +20,7 @@ class MoviesViewController: UIViewController {
         DispatchQueue.global(qos: .background).async {
             [weak self] in self?.loadMovies()
         }
+        tableView.rowHeight = 240
     }
     private func configureUI() {
         view.addSubview(tableView)
@@ -35,33 +36,50 @@ class MoviesViewController: UIViewController {
         tableView.reloadData()
     }
     
+    private func loadImagesForMovies(_ movies: [Movie], completion: @escaping ([Movie]) -> Void) {
+             let group = DispatchGroup()
+             for movie in movies {
+                 group.enter()
+                 DispatchQueue.global(qos: .background).async {
+                     movie.loadPoster { _ in
+                         group.leave()
+                     }
+                 }
+             }
+             group.notify(queue: .main) {
+                 completion(movies)
+             }
+
+         }
+    
     private func loadMovies() {
-        guard let url = URL(string: "https://api.themoviedb.org/3/discover/movie?api_key=(apiKey)&language=ruRu") else {
-            return assertionFailure("some problem with url")
-        }
-        let session = URLSession.shared.dataTask(with: URLRequest(url: url), completionHandler: { data, _, _ in
-            guard
-                let data = data,
-                let dict = try? JSONSerialization.jsonObject(with: data, options: .json5Allowed)
-                    as? [String: Any],
-                let results = dict["result"] as? [[String: Any]]
-            else {
-                return
-            }
-            let movies:[Movie] = results.map {params in
-                let title = params["title"] as! String
-                let imagePath = params["poster_path"] as! String
-                return Movie(title: title, posterPath: imagePath, poster: nil)
-            }
-            self.movies = movies
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        })
-        session.resume()
+        guard let url = URL(string:"https://api.themoviedb.org/3/discover/movie?api_key=\(apiKey)&language=ruRU") else {return assertionFailure()}
+                 let session = URLSession.shared.dataTask(with: URLRequest(url: url), completionHandler: {data, _, _ in
+                     guard
+                         let data = data,
+                         let dict = try? JSONSerialization.jsonObject (with: data, options: .json5Allowed) as? [String: Any],
+                         let results = dict["results"] as? [[String: Any]]
+                     else { return }
+                     let movies: [Movie] = results.map { params in
+                         let title = params["title"] as! String
+                         let imagePath = params["poster_path"] as? String
+                         return Movie(
+                             title: title,
+                             posterPath: imagePath
+                         )
+                     }
+                     self.loadImagesForMovies(movies) { movies in
+                         self.movies = movies
+                         DispatchQueue.main.async {
+                             self.tableView.reloadData()
+                         }
+                     }
+                 })
+                 session.resume()
+             }
     }
 
-}
+
 
 extension MoviesViewController: UITableViewDataSource {
 
