@@ -13,6 +13,7 @@
 		0954D8CA27E745DE00693AFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0954D8C927E745DE00693AFE /* Assets.xcassets */; };
 		0954D8CD27E745DE00693AFE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0954D8CB27E745DE00693AFE /* LaunchScreen.storyboard */; };
 		0954D8D927E747E400693AFE /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0954D8D827E747E400693AFE /* MovieCell.swift */; };
+		0954D8DB27E758E800693AFE /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0954D8DA27E758E800693AFE /* Movie.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		0954D8CC27E745DE00693AFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0954D8CE27E745DE00693AFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0954D8D827E747E400693AFE /* MovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
+		0954D8DA27E758E800693AFE /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				0954D8D827E747E400693AFE /* MovieCell.swift */,
+				0954D8DA27E758E800693AFE /* Movie.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -173,6 +176,7 @@
 				0954D8C127E745DC00693AFE /* AppDelegate.swift in Sources */,
 				0954D8D927E747E400693AFE /* MovieCell.swift in Sources */,
 				0954D8C327E745DC00693AFE /* SceneDelegate.swift in Sources */,
+				0954D8DB27E758E800693AFE /* Movie.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
