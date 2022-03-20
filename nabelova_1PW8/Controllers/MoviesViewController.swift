@@ -53,7 +53,7 @@ class MoviesViewController: UIViewController {
          }
     
     private func loadMovies() {
-        guard let url = URL(string:"https://api.themoviedb.org/3/discover/movie?api_key=\(apiKey)&language=ruRU") else {return assertionFailure()}
+        guard let url = URL(string:"https://api.themoviedb.org/3/discover/movie?api_key=\(apiKey)&language=ru-RU") else {return assertionFailure()}
                  let session = URLSession.shared.dataTask(with: URLRequest(url: url), completionHandler: {data, _, _ in
                      guard
                          let data = data,
