@@ -20,7 +20,7 @@ class MoviesViewController: UIViewController {
         DispatchQueue.global(qos: .background).async {
             [weak self] in self?.loadMovies()
         }
-        tableView.rowHeight = 240
+        tableView.rowHeight = 250
     }
     private func configureUI() {
         view.addSubview(tableView)

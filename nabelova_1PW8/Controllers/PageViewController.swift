@@ -1,36 +1,41 @@
 //
-//  SearchViewController.swift
+//  PageViewController.swift
 //  nabelova_1PW8
 //
 //  Created by Наталья Белова on 20.03.2022.
 //
 
 import Foundation
+
 import UIKit
 
- class SearchViewController: UIViewController {
+ class PageViewController : UIViewController{
 
+     private let apiKey = "fc57145e7f23876373951e70a3dd0560"
      private let tableView = UITableView()
-
-     private var movies = [Movie]()
-
+     private let pickerView = UIPickerView()
      private var session: URLSessionDataTask!
-
-     private let apiKey = "93e28afb2d742c286532168fd4b53439"
-
-     private let searchBar = UISearchBar()
+     private var movies = [Movie]()
+     private let pages = ["1", "2", "3", "4", "5"]
 
      override func viewDidLoad() {
          super.viewDidLoad()
          view.backgroundColor = .white
          configureUI()
+         DispatchQueue.global(qos: .background).async { [weak self] in
+             self?.loadMovies(page: 1)
+         }
          tableView.rowHeight = 250
      }
 
      private func configureUI(){
          view.addSubview(tableView)
-         navigationItem.titleView = searchBar
-         searchBar.delegate = self
+         navigationItem.titleView = pickerView
+         let rotationAngle: CGFloat! = -90  * (.pi / 180)
+         pickerView.transform = CGAffineTransform(rotationAngle: rotationAngle)
+         pickerView.frame = CGRect(x: -150, y: 100.0, width: view.bounds.width + 300, height: 200)
+         pickerView.delegate = self
+         pickerView.dataSource = self
          tableView.dataSource = self
          tableView.register(MovieCell.self, forCellReuseIdentifier: MovieCell.identifier)
          tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -59,12 +64,11 @@ import UIKit
 
      }
 
-     private func loadMovies(movieName: String){
-         if(session != nil){
+     private func loadMovies(page: Int){
+         if (session != nil) {
              session!.cancel()
          }
-         guard let url = URL(string:"https://api.themoviedb.org/3/search/movie?api_key=\(apiKey)&language=ru-RU&query=\(movieName)&page=1".addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)
-         else {return assertionFailure()}
+         guard let url = URL(string:"https://api.themoviedb.org/3/discover/movie?api_key=\(apiKey)&language=ru-RU&page=\(page)") else {return assertionFailure()}
          session = URLSession.shared.dataTask(with: URLRequest(url: url), completionHandler: {data, _, _ in
              guard
                  let data = data,
@@ -91,7 +95,7 @@ import UIKit
 
  }
 
- extension SearchViewController : UITableViewDataSource {
+ extension PageViewController : UITableViewDataSource {
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
          return movies.count
      }
@@ -103,10 +107,37 @@ import UIKit
      }
  }
 
- extension SearchViewController : UISearchBarDelegate {
-     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+ extension PageViewController: UIPickerViewDelegate {
+     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
          DispatchQueue.global(qos: .background).async { [weak self] in
-             self?.loadMovies(movieName: searchText)
+             self?.loadMovies(page: row + 1)
          }
      }
+
+ }
+
+ extension PageViewController: UIPickerViewDataSource {
+     func numberOfComponents(in pickerView: UIPickerView) -> Int {
+         return 1
+     }
+
+     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+         return pages.count
+     }
+
+
+     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int,
+                     forComponent component: Int, reusing view: UIView?) -> UIView {
+         let view = UIView()
+         view.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+         label.textColor = .darkGray
+         label.text = pages[row]
+         label.textAlignment = .center
+         view.addSubview(label)
+         let rotationAngle: CGFloat! = 90  * (.pi / 180)
+         view.transform = CGAffineTransform(rotationAngle: rotationAngle)
+         return view
+     }
+
  }

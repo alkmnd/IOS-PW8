@@ -16,6 +16,8 @@
 		0954D8DB27E758E800693AFE /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0954D8DA27E758E800693AFE /* Movie.swift */; };
 		0954D8DD27E76FD400693AFE /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0954D8DC27E76FD400693AFE /* SearchViewController.swift */; };
 		0954D8DF27E76FF800693AFE /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0954D8DE27E76FF800693AFE /* TabBarController.swift */; };
+		0954D8E127E77C0800693AFE /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0954D8E027E77C0800693AFE /* PageViewController.swift */; };
+		0954D8E327E77C1500693AFE /* ScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0954D8E227E77C1500693AFE /* ScrollViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		0954D8DA27E758E800693AFE /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		0954D8DC27E76FD400693AFE /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		0954D8DE27E76FF800693AFE /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		0954D8E027E77C0800693AFE /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		0954D8E227E77C1500693AFE /* ScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +85,8 @@
 				0954D8C427E745DC00693AFE /* MoviesViewController.swift */,
 				0954D8DC27E76FD400693AFE /* SearchViewController.swift */,
 				0954D8DE27E76FF800693AFE /* TabBarController.swift */,
+				0954D8E027E77C0800693AFE /* PageViewController.swift */,
+				0954D8E227E77C1500693AFE /* ScrollViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -182,9 +188,11 @@
 				0954D8C527E745DC00693AFE /* MoviesViewController.swift in Sources */,
 				0954D8C127E745DC00693AFE /* AppDelegate.swift in Sources */,
 				0954D8D927E747E400693AFE /* MovieCell.swift in Sources */,
+				0954D8E327E77C1500693AFE /* ScrollViewController.swift in Sources */,
 				0954D8DF27E76FF800693AFE /* TabBarController.swift in Sources */,
 				0954D8C327E745DC00693AFE /* SceneDelegate.swift in Sources */,
 				0954D8DB27E758E800693AFE /* Movie.swift in Sources */,
+				0954D8E127E77C0800693AFE /* PageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

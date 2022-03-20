@@ -17,8 +17,10 @@ import UIKit
 
      private func setUpViewControllers(){
          viewControllers = [
-             navigate(for: MoviesViewController(), title: "Фильмы", image: UIImage(named: "movie")!),
-             navigate(for: SearchViewController(), title: "Поиск", image: UIImage(named: "search")!)
+             navigate(for: MoviesViewController(), title: "Все фильмы", image: UIImage(named: "movie")!),
+             navigate(for: SearchViewController(), title: "Поиск", image: UIImage(named: "search")!),
+             navigate(for: ScrollViewController(), title: "Список", image: UIImage(named: "scroll")!),
+             navigate(for: PageViewController(), title: "Страницы", image: UIImage(named: "pages")!)
          ]
      }
 
