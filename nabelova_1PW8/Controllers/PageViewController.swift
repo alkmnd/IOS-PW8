@@ -39,10 +39,11 @@ import UIKit
          let rotationAngle: CGFloat! = -90  * (.pi / 180)
          pickerView.transform = CGAffineTransform(rotationAngle: rotationAngle)
          pickerView.frame = CGRect(x: -150, y: 100.0, width: view.bounds.width + 300, height: 200)
-        
-         tableView.dataSource = self
-         tableView.register(MovieCell.self, forCellReuseIdentifier: MovieCell.identifier)
          tableView.delegate = self
+         tableView.dataSource = self
+         pickerView.delegate = self
+         pickerView.dataSource = self
+         tableView.register(MovieCell.self, forCellReuseIdentifier: MovieCell.identifier)
          tableView.translatesAutoresizingMaskIntoConstraints = false
          NSLayoutConstraint.activate([
              tableView.topAnchor.constraint(equalTo:view.topAnchor),
@@ -157,14 +158,10 @@ extension PageViewController: UITableViewDelegate {
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
          if let url = URL(string: movies[indexPath.row].path!) {
-             self.window = UIWindow(frame: UIScreen.main.bounds)
-             let navigationController = UINavigationController()
              let controller = WebViewController()
              controller.url = url
-             navigationController.viewControllers = [controller]
-             self.window!.rootViewController = navigationController
-             self.window?.makeKeyAndVisible()
-             self.navigationController?.pushViewController(controller, animated: true)
+             navigationController?.modalPresentationStyle = .fullScreen
+             navigationController!.pushViewController(controller, animated: true)
          }
      }
  }
