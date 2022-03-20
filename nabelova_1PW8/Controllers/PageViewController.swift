@@ -27,6 +27,11 @@ import UIKit
          }
          tableView.rowHeight = 250
      }
+     var window : UIWindow?
+     override func viewDidAppear(_ animated: Bool) {
+        view.backgroundColor = .white
+        configureUI()
+     }
 
      private func configureUI(){
          view.addSubview(tableView)
@@ -34,10 +39,10 @@ import UIKit
          let rotationAngle: CGFloat! = -90  * (.pi / 180)
          pickerView.transform = CGAffineTransform(rotationAngle: rotationAngle)
          pickerView.frame = CGRect(x: -150, y: 100.0, width: view.bounds.width + 300, height: 200)
-         pickerView.delegate = self
-         pickerView.dataSource = self
+        
          tableView.dataSource = self
          tableView.register(MovieCell.self, forCellReuseIdentifier: MovieCell.identifier)
+         tableView.delegate = self
          tableView.translatesAutoresizingMaskIntoConstraints = false
          NSLayoutConstraint.activate([
              tableView.topAnchor.constraint(equalTo:view.topAnchor),
@@ -48,6 +53,9 @@ import UIKit
          tableView.reloadData()
      }
 
+     private func loadMoviePage(id: Int) -> String {
+              return "https://www.themoviedb.org/movie/\(id)"
+          }
      private func loadImagesForMovies(_ movies: [Movie], completion: @escaping ([Movie]) -> Void) {
          let group = DispatchGroup()
          for movie in movies {
@@ -78,10 +86,13 @@ import UIKit
              let movies: [Movie] = results.map { params in
                  let title = params["title"] as! String
                  let imagePath = params["poster_path"] as? String
-                 return Movie(
-                     title: title,
-                     posterPath: imagePath
-                 )
+                 let id = params["id"] as? Int
+                 let backdropPath = self.loadMoviePage(id: id!)
+                return Movie(
+                    title: title,
+                    posterPath: imagePath,
+                    path: backdropPath
+                )
              }
              self.loadImagesForMovies(movies) { movies in
                  self.movies = movies
@@ -140,4 +151,20 @@ import UIKit
          return view
      }
 
+ }
+extension PageViewController: UITableViewDelegate {
+
+     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+         if let url = URL(string: movies[indexPath.row].path!) {
+             self.window = UIWindow(frame: UIScreen.main.bounds)
+             let navigationController = UINavigationController()
+             let controller = WebViewController()
+             controller.url = url
+             navigationController.viewControllers = [controller]
+             self.window!.rootViewController = navigationController
+             self.window?.makeKeyAndVisible()
+             self.navigationController?.pushViewController(controller, animated: true)
+         }
+     }
  }

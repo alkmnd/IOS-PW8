@@ -10,15 +10,21 @@ import UIKit
 
 class Movie {
     let title: String
+    var path: String?
     let posterPath: String?
     var poster: UIImage? = nil
     
     init (
         title: String,
-        posterPath: String?) {
+        posterPath: String?, path: String?) {
             self.title = title
             self.posterPath = posterPath
+            self.path = path
         }
+    init(title: String, posterPath: String?) {
+        self.title = title
+        self.posterPath = posterPath
+    }
     func loadPoster(completion: @escaping (UIImage?) -> Void) {
         guard
             let posterPath = posterPath,
@@ -39,4 +45,5 @@ class Movie {
         }
         request.resume()
     }
+
 }

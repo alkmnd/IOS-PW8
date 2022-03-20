@@ -11,13 +11,9 @@ import UIKit
  class SearchViewController: UIViewController {
 
      private let tableView = UITableView()
-
      private var movies = [Movie]()
-
      private var session: URLSessionDataTask!
-
-     private let apiKey = "93e28afb2d742c286532168fd4b53439"
-
+     private let apiKey = "fc57145e7f23876373951e70a3dd0560"
      private let searchBar = UISearchBar()
 
      override func viewDidLoad() {
@@ -58,6 +54,10 @@ import UIKit
          }
 
      }
+     private func loadMoviePage(id: Int) -> String {
+         return "https://www.themoviedb.org/movie/\(id)"
+     }
+     
 
      private func loadMovies(movieName: String){
          if(session != nil){
@@ -74,9 +74,12 @@ import UIKit
              let movies: [Movie] = results.map { params in
                  let title = params["title"] as! String
                  let imagePath = params["poster_path"] as? String
+                 let id = params["id"] as? Int
+                 let path = self.loadMoviePage(id: id!)
                  return Movie(
                      title: title,
-                     posterPath: imagePath
+                     posterPath: imagePath,
+                     path: path
                  )
              }
              self.loadImagesForMovies(movies) { movies in
@@ -88,6 +91,7 @@ import UIKit
          })
          session.resume()
      }
+
 
  }
 

@@ -11,29 +11,30 @@ import UIKit
  class ScrollViewController: UIViewController {
 
      private let tableView = UITableView()
-
      private var pageCount = 0
-
      private var movies = [Movie]()
-
      private var session: URLSessionDataTask?!
-
      private let apiKey = "fc57145e7f23876373951e70a3dd0560"
+     var window: UIWindow?
 
      override func viewDidLoad() {
          super.viewDidLoad()
          view.backgroundColor = .white
-         configUI()
+         configureUI()
          DispatchQueue.global(qos: .background).async { [weak self] in
-             self?.loadMovies(page: 1)
+             self?.loadMovies(page: 2)
          }
          tableView.rowHeight = 250
      }
 
-     private func configUI(){
+     private func loadMoviePage(id: Int) -> String {
+         return "https://www.themoviedb.org/movie/\(id)"
+     }
+     private func configureUI(){
          view.addSubview(tableView)
          tableView.dataSource = self
          tableView.prefetchDataSource = self
+         tableView.delegate = self
          tableView.register(MovieCell.self, forCellReuseIdentifier: MovieCell.identifier)
          tableView.translatesAutoresizingMaskIntoConstraints = false
          NSLayoutConstraint.activate([
@@ -75,10 +76,11 @@ import UIKit
              let movies: [Movie] = results.map { params in
                  let title = params["title"] as! String
                  let imagePath = params["poster_path"] as? String
-                 return Movie(
-                     title: title,
-                     posterPath: imagePath
-                 )
+                 let id = params["id"] as? Int
+                 let path = self.loadMoviePage(id: id!)
+                 return Movie(title: title, posterPath: imagePath,
+                    path: path
+                )
              }
              self.loadImagesForMovies(movies) { movies in
                  self.movies.append(contentsOf: movies)
@@ -110,11 +112,21 @@ import UIKit
      func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
          let index = indexPaths[0]
          let page = (index.row + 1) / 20
-         print(page)
          DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0) {
              if (self.pageCount < page + 1) {
                  self.loadMovies(page: page + 1)
              }
          }
      }
+ }
+extension ScrollViewController: UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let url = URL(string: movies[indexPath.row].path!) {
+            let controller = WebViewController()
+            controller.url = url
+            navigationController?.modalPresentationStyle = .fullScreen
+            navigationController!.pushViewController(controller, animated: true)
+        }
+    }
  }

@@ -22,9 +22,13 @@ class MoviesViewController: UIViewController {
         }
         tableView.rowHeight = 250
     }
+    private func loadMoviePage(id: Int) -> String {
+             return "https://www.themoviedb.org/movie/\(id)"
+    }
     private func configureUI() {
         view.addSubview(tableView)
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.register(MovieCell.self, forCellReuseIdentifier: MovieCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -60,13 +64,16 @@ class MoviesViewController: UIViewController {
                          let dict = try? JSONSerialization.jsonObject (with: data, options: .json5Allowed) as? [String: Any],
                          let results = dict["results"] as? [[String: Any]]
                      else { return }
-                     let movies: [Movie] = results.map { params in
-                         let title = params["title"] as! String
-                         let imagePath = params["poster_path"] as? String
-                         return Movie(
-                             title: title,
-                             posterPath: imagePath
-                         )
+                    let movies: [Movie] = results.map { params in
+                    let title = params["title"] as! String
+                    let imagePath = params["poster_path"] as? String
+                    let id = params["id"] as? Int
+                    let path = self.loadMoviePage(id: id!)
+                    return Movie(
+                            title: title,
+                            posterPath: imagePath,
+                            path: path
+                        )
                      }
                      self.loadImagesForMovies(movies) { movies in
                          self.movies = movies
@@ -92,3 +99,15 @@ extension MoviesViewController: UITableViewDataSource {
         return cell
     }
 }
+extension MoviesViewController: UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let url = URL(string: movies[indexPath.row].path!) {
+            let controller = WebViewController()
+            controller.url = url
+            navigationController?.modalPresentationStyle = .fullScreen
+            navigationController!.pushViewController(controller, animated: true)
+        }
+    }
+ }
+
