@@ -9,21 +9,21 @@
 /* Begin PBXBuildFile section */
 		0954D8C127E745DC00693AFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0954D8C027E745DC00693AFE /* AppDelegate.swift */; };
 		0954D8C327E745DC00693AFE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0954D8C227E745DC00693AFE /* SceneDelegate.swift */; };
-		0954D8C527E745DC00693AFE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0954D8C427E745DC00693AFE /* ViewController.swift */; };
-		0954D8C827E745DC00693AFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0954D8C627E745DC00693AFE /* Main.storyboard */; };
+		0954D8C527E745DC00693AFE /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0954D8C427E745DC00693AFE /* MoviesViewController.swift */; };
 		0954D8CA27E745DE00693AFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0954D8C927E745DE00693AFE /* Assets.xcassets */; };
 		0954D8CD27E745DE00693AFE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0954D8CB27E745DE00693AFE /* LaunchScreen.storyboard */; };
+		0954D8D927E747E400693AFE /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0954D8D827E747E400693AFE /* MovieCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0954D8BD27E745DC00693AFE /* nabelova_1PW8.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = nabelova_1PW8.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0954D8C027E745DC00693AFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0954D8C227E745DC00693AFE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0954D8C427E745DC00693AFE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		0954D8C727E745DC00693AFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0954D8C427E745DC00693AFE /* MoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesViewController.swift; sourceTree = "<group>"; };
 		0954D8C927E745DE00693AFE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0954D8CC27E745DE00693AFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0954D8CE27E745DE00693AFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0954D8D827E747E400693AFE /* MovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +56,47 @@
 		0954D8BF27E745DC00693AFE /* nabelova_1PW8 */ = {
 			isa = PBXGroup;
 			children = (
-				0954D8C027E745DC00693AFE /* AppDelegate.swift */,
+				0954D8D727E7475600693AFE /* Delegates */,
 				0954D8C227E745DC00693AFE /* SceneDelegate.swift */,
-				0954D8C427E745DC00693AFE /* ViewController.swift */,
-				0954D8C627E745DC00693AFE /* Main.storyboard */,
+				0954D8C027E745DC00693AFE /* AppDelegate.swift */,
+				0954D8D627E7470D00693AFE /* Protocols */,
+				0954D8D527E7470300693AFE /* Models */,
+				0954D8D427E746F800693AFE /* Controllers */,
 				0954D8C927E745DE00693AFE /* Assets.xcassets */,
 				0954D8CB27E745DE00693AFE /* LaunchScreen.storyboard */,
 				0954D8CE27E745DE00693AFE /* Info.plist */,
 			);
 			path = nabelova_1PW8;
+			sourceTree = "<group>";
+		};
+		0954D8D427E746F800693AFE /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0954D8C427E745DC00693AFE /* MoviesViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		0954D8D527E7470300693AFE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0954D8D827E747E400693AFE /* MovieCell.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0954D8D627E7470D00693AFE /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		0954D8D727E7475600693AFE /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Delegates;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,7 +159,6 @@
 			files = (
 				0954D8CD27E745DE00693AFE /* LaunchScreen.storyboard in Resources */,
 				0954D8CA27E745DE00693AFE /* Assets.xcassets in Resources */,
-				0954D8C827E745DC00693AFE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,8 +169,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0954D8C527E745DC00693AFE /* ViewController.swift in Sources */,
+				0954D8C527E745DC00693AFE /* MoviesViewController.swift in Sources */,
 				0954D8C127E745DC00693AFE /* AppDelegate.swift in Sources */,
+				0954D8D927E747E400693AFE /* MovieCell.swift in Sources */,
 				0954D8C327E745DC00693AFE /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,14 +179,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		0954D8C627E745DC00693AFE /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0954D8C727E745DC00693AFE /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		0954D8CB27E745DE00693AFE /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -293,7 +317,6 @@
 				INFOPLIST_FILE = nabelova_1PW8/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -320,7 +343,6 @@
 				INFOPLIST_FILE = nabelova_1PW8/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
